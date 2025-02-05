@@ -36,7 +36,7 @@ cd SelfBot-Main
 
 **라이센스 키는 보안을 위한 절차입니다!!**
 
-**필요한 경우 https://github.com/Nothing-64/selfcord.py를 다운로드 받은 뒤 selfcord 폴더만 소스 디렉터리에 추가하십시오!**
+**필요한 경우 https://github.com/Nothing-64/selfcord.py 를 다운로드 받은 뒤 selfcord 폴더만 소스 디렉터리에 추가하십시오!**
 
 **필요한 패키지 설치:**
 ```Python
