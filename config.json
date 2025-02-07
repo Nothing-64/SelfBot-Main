@@ -1,0 +1,8 @@
+﻿{
+    "token": "YOUR_DISCORD_USER_TOKEN_HERE",
+    "streaming_link": "https://twitch.tv/discord",
+    "GOOGLE_API_KEY": "YOUR_API_KEY_HERE",
+    "GOOGLE_CX": "YOUR_SEARCH_ID_HERE",
+    "billing": "",
+    "name": ""
+}
