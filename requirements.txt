@@ -1,0 +1,7 @@
+beautifulsoup4==4.13.1
+httpx==0.28.1
+psycopg2-binary==2.9.10
+Requests==2.32.3
+tls_client==1.0.1
+pytz==2025.1
+captcha==0.6.0
