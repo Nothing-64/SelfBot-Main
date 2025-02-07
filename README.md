@@ -34,9 +34,9 @@ cd SelfBot-Main
 
 **config.json에 유저 토큰, 구글 검색 엔진 API 키와 검색 엔진 ID를 넣으십시오!!**
 
--# 검색 엔진 API 키: https://developers.google.com/custom-search/v1/introduction?hl=ko
+### 검색 엔진 API 키: https://developers.google.com/custom-search/v1/introduction?hl=ko
 
--# 검색 엔진 ID: https://programmablesearchengine.google.com/controlpanel/create
+### 검색 엔진 ID: https://programmablesearchengine.google.com/controlpanel/create
 
 **필요한 경우 https://github.com/Nothing-64/selfcord.py 를 다운로드 받은 뒤 selfcord 폴더만 소스 디렉터리에 추가하십시오!**
 
