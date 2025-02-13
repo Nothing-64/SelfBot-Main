@@ -809,10 +809,9 @@ async def 상태변경(ctx, *, status_message=None):
 
     if status_message is None:
         current_prefix = load_prefix()
-        await ctx.reply(f"```사용법: {current_prefix}상태변경 [듣는중/시청중/방송중] [상태 메시지]```")
+        await ctx.reply(f"```사용법: {current_prefix}상태변경 [듣는중/시청중/방송중/하는중] [상태 메시지]```")
         return
 
-    
     if len(status_message) > 100:
         await ctx.reply("```상태 메시지는 100자 이하로 설정해야 합니다.```")
         return
@@ -838,8 +837,13 @@ async def 상태변경(ctx, *, status_message=None):
         await bot.change_presence(activity=selfcord.Activity(type=selfcord.ActivityType.watching, name=status_message.replace("시청중", "").strip()))
         await ctx.reply(f"```상태가 '시청중'으로 변경되었습니다: {status_message}```")
         return
+    elif "하는중" in status_message:
+        await bot.change_presence(activity=selfcord.Activity(type=selfcord.ActivityType.playing, name=status_message.replace("하는중", "").strip()))
+        await ctx.reply(f"```상태가 '하는중'으로 변경되었습니다: {status_message}```")
+        return
     else:
-        await ctx.reply("```잘못된 상태 타입입니다. '듣기', '시청중', '방송중' 중 하나를 입력해주세요.```")
+        await ctx.reply("```잘못된 상태 타입입니다. '듣는중', '시청중', '방송중', '하는중' 중 하나를 입력해주세요.```")
+
 
 
 
