@@ -1,7 +1,12 @@
-beautifulsoup4==4.13.1
+requests==2.32.3
 httpx==0.28.1
-psycopg2-binary==2.9.10
-Requests==2.32.3
 tls_client==1.0.1
+beautifulsoup4==4.13.3
+psycopg2-binary==2.9.10
 pytz==2025.1
-captcha==0.6.0
+deep_translator==1.11.4
+yt_dlp==2025.1.26
+pycryptodome==3.21.0
+instaloader==4.14.1
+geopy==2.4.1
+captcha==0.4
