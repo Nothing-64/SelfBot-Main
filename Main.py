@@ -27,9 +27,13 @@ import pytz
 import zipfile
 import hashlib
 import hmac
-
-
-
+from deep_translator import GoogleTranslator
+import yt_dlp
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
+import base64
+import instaloader
+from geopy.geocoders import Nominatim
 
 selfcord_dir = 'selfcord'
 
@@ -68,6 +72,7 @@ except Exception as e:
 client = selfcord.Client()
 bot = commands.Bot(command_prefix=";", self_bot=True)
 
+
 delete_confirmation = False
 captcha_confirmation = False
 captcha_text = ""
@@ -98,9 +103,9 @@ PRIVATE_IP_RANGES = [
     "172.26.", "172.27.", "172.28.", "172.29.", "172.30.", "172.31.",
     "192.168."
 ]
+
 LIB_VER = "1.7.3"
 LOCAL_VER = "0.7.6"
-
 class WIN_headers:
     def __init__(self):
         st = time.time()
@@ -544,6 +549,134 @@ async def 검색(ctx, *, query: str = None):
             return
 
         await ctx.reply(f"```\n" + "\n".join(results) + "\n```")
+
+@bot.command()
+async def 오늘의명언(ctx):
+    allowed_users = load_allowed_users()
+    if str(ctx.author.id) not in allowed_users:
+        return  
+
+    url = "https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json"
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        data = response.json()
+        quote = data['quoteText']
+        author = data['quoteAuthor'] if data['quoteAuthor'] else "Unknown"
+        await ctx.reply(f"```오늘의 명언: {quote} - {author}```")
+    else:
+        await ctx.reply("명언을 가져오는 데 실패했습니다. 다시 시도해 주세요.")
+
+@bot.command()
+async def 인스타조회(ctx, username: str = None):
+    allowed_users = load_allowed_users()
+    if str(ctx.author.id) not in allowed_users:
+        return  
+    if username is None:
+        current_prefix = load_prefix()
+        await ctx.reply(f"```사용법: {current_prefix}인스타조회 [조회할 유저의 이름]```")  
+        return
+    try:
+        L = instaloader.Instaloader()
+        profile = instaloader.Profile.from_username(L.context, username)
+        user_info = f"Username: {profile.username}\nFollowers: {profile.followers}\nPosts: {profile.mediacount}\nBio: {profile.biography}"
+        await ctx.reply(f'```인스타그램 사용자 정보:\n{user_info}```')
+    except Exception as e:
+        await ctx.reply(f'```인스타그램 조회 중 오류 발생: {e}```')
+
+@bot.command()
+async def 암호화(ctx, key: str = None, *, text: str = None):
+    allowed_users = load_allowed_users()
+    if str(ctx.author.id) not in allowed_users:
+        return  
+    if key is None or text is None:
+        current_prefix = load_prefix()
+        await ctx.reply(f"```사용법: {current_prefix}암호화 [AES 128비트 키] [암호화 할 메시지]```")  
+        return
+    try:
+        key = key.encode('utf-8')[:16]  
+        cipher = AES.new(key, AES.MODE_ECB) 
+        padded_text = pad(text.encode('utf-8'), AES.block_size) 
+        encrypted = cipher.encrypt(padded_text)
+        encrypted_b64 = base64.b64encode(encrypted).decode('utf-8')  
+        await ctx.reply(f'```암호화된 메시지: {encrypted_b64}```')
+    except Exception as e:
+        await ctx.reply(f'```암호화 중 오류 발생: {e}```')
+
+@bot.command()
+async def 복호화(ctx, key: str = None, *, encrypted_text: str = None):
+    allowed_users = load_allowed_users()
+    if str(ctx.author.id) not in allowed_users:
+        return  
+    if key is None or encrypted_text is None:
+        current_prefix = load_prefix()
+        await ctx.reply(f"```사용법: {current_prefix}복호화 [AES 128비트 키] [복호화 할 메시지(base64 형식)]```")  
+        return
+    try:
+        key = key.encode('utf-8')[:16] 
+        encrypted_text = base64.b64decode(encrypted_text)  
+
+        cipher = AES.new(key, AES.MODE_ECB)  
+        decrypted = unpad(cipher.decrypt(encrypted_text), AES.block_size) 
+        decrypted_text = decrypted.decode('utf-8') 
+        await ctx.reply(f'```복호화된 메시지: {decrypted_text}```')
+    except Exception as e:
+        await ctx.reply(f'```복호화 중 오류 발생: {e}```')
+        
+@bot.command()
+async def 번역(ctx, lang: str = None, *, text: str = None):
+    allowed_users = load_allowed_users()
+    if str(ctx.author.id) not in allowed_users:
+        return  
+    if lang is None or text is None:
+        current_prefix = load_prefix()
+        await ctx.reply(f"```사용법: {current_prefix}번역 [국가 코드 2자리 혹은 나라 이름] [번역할 텍스트]```")  
+        return
+    try:
+        valid_languages = GoogleTranslator().get_supported_languages()
+        lang = lang.lower()
+        if lang not in valid_languages:
+            await ctx.reply(f'```지원되지 않는 언어 코드입니다. 지원되는 언어: {", ".join(valid_languages)}```')
+            return
+        
+        translated = GoogleTranslator(target=lang).translate(text)
+        await ctx.reply(f'```번역 결과 ({lang.upper()})\n{translated}```')
+    except Exception as e:
+        await ctx.reply(f'```번역 중 오류 발생: {e}```')
+
+
+@bot.command()
+async def 유튜브조회(ctx, video_id: str = None):
+    allowed_users = load_allowed_users()
+    if str(ctx.author.id) not in allowed_users:
+        return  
+    if video_id is None:
+        current_prefix = load_prefix()
+        await ctx.reply(f"```사용법: {current_prefix}유튜브조회 [조회할 유튜브의 영상 링크 (예시 uUwtnbMW9-c)]```")  
+        return
+    url = f'https://www.youtube.com/watch?v={video_id}'
+    ydl_opts = {"quiet": True}
+    
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        try:
+            info = ydl.extract_info(url, download=False)
+            title = info.get('title', '제목 없음')
+            uploader = info.get('uploader', '업로더 정보 없음')
+            views = info.get('view_count', 0)
+            likes = info.get('like_count', 0)
+            duration = info.get('duration', 0)
+            
+            response = (f'```제목: {title}\n'
+                        f'업로더: {uploader}\n'
+                        f'조회수: {views}회\n'
+                        f'좋아요: {likes}개\n'
+                        f'길이: {duration}초\n'
+                        f'링크: {url}```')
+            await ctx.reply(response)
+        except Exception as e:
+            await ctx.reply(f'```유튜브 정보 조회 중 오류 발생: {e}```')
+
+
 
 
 @bot.command()
