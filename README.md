@@ -1,9 +1,9 @@
-# 🛠️ Nothing._.64's SelfBot - 최적화된 디스코드 셀프봇
+# 🛠️ lunarist._.dev's SelfBot - 최적화된 디스코드 셀프봇
 
 **경고!! 해당 봇은 OmegaDevStudio의 selfcord 라이브러리가 아닌 https://github.com/Nothing-64/selfcord.py 라이브러리를 기반으로 동작합니다!!**
 
-**Nothing._.64's SelfBot**에 오신 것을 환영합니다. 이 봇은 최소한의 지연 시간으로 고성능을 자랑하는 최적화된 셀프봇입니다.  
-**nothing._.64**가 개발한 이 프로젝트는 효율적이고 커스터마이징 가능한 디스코드 자동화 도구를 제공합니다.
+**lunarist._.dev's SelfBot**에 오신 것을 환영합니다. 이 봇은 최소한의 지연 시간으로 고성능을 자랑하는 최적화된 셀프봇입니다.  
+**lunarist._.dev**가 개발한 이 프로젝트는 효율적이고 커스터마이징 가능한 디스코드 자동화 도구를 제공합니다.
 
 ---
 
@@ -87,7 +87,7 @@ python Main.py
 
 커스텀 라이선스
 
-Copyright (c) 2025 Nothing-64
+Copyright (c) 2025 lunarist._.dev
 
 이 소프트웨어와 관련 문서 파일("소프트웨어")을 복사, 사용 및 수정할 수 있는 권한을 무료로 부여합니다. 단, 아래 조건을 준수해야 합니다:
 
@@ -98,7 +98,8 @@ Copyright (c) 2025 Nothing-64
 
 ```
 🙌 감사의 말씀
-개발자: nothing._.64
+개발자: lunarist._.dev
+
 특별한 감사: 모든 기여자들과 오픈소스 커뮤니티에 감사드립니다!
 
 [🔗 깃허브 리포지토리](<https://github.com/Nothing-64/SelfBot-Main>)
