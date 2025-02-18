@@ -1,5 +1,7 @@
 # 🛠️ lunarist._.dev's SelfBot - 최적화된 디스코드 셀프봇
 
+**이 프로젝트는 불안정할 수 있습니다. 오류 수정을 원하시면 본인이 직접 수정하거나, Issues 탭에 문제를 남겨주세요.**
+
 **경고!! 해당 봇은 OmegaDevStudio의 selfcord 라이브러리가 아닌 https://github.com/Nothing-64/selfcord.py 라이브러리를 기반으로 동작합니다!!**
 
 **lunarist._.dev's SelfBot**에 오신 것을 환영합니다. 이 봇은 최소한의 지연 시간으로 고성능을 자랑하는 최적화된 셀프봇입니다.  
