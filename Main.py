@@ -1,3 +1,5 @@
+# Created By lunarist._.dev the limit does not exists!
+
 import requests
 from datetime import timedelta, datetime
 import platform
