@@ -281,6 +281,37 @@ async def 초대링크생성(ctx):
     else:
         await ctx.reply(f"```초대 링크 생성에 실패하였습니다. 오류 코드: {response.status_code}```")
 
+@bot.command()
+async def 웹후크정보(ctx, url: str = None):
+    if not url:
+        current_prefix = load_prefix()
+        await ctx.reply(f"```사용법 : {current_prefix}웹후크정보 [조회할 웹후크의 URL]```")
+        return
+    try:
+        parts = url.split("/")
+        if len(parts) < 2:
+            return await ctx.reply("```올바른 웹후크 URL을 입력하세요.```")
+
+        webhook_id, webhook_token = parts[-2], parts[-1]
+        api_url = f"https://discord.com/api/webhooks/{webhook_id}/{webhook_token}"
+        response = requests.get(api_url)
+
+        if response.status_code == 200:
+            data = response.json()
+            info = (
+                f"```\n"
+                f"웹후크 이름: {data.get('name')}\n"
+                f"채널 ID: {data.get('channel_id')}\n"
+                f"길드 ID: {data.get('guild_id')}\n"
+                f"```"
+            )
+            await ctx.reply(info)
+        else:
+            await ctx.reply(f"```웹후크 정보를 가져오는 데 실패했습니다. 상태 코드: {response.status_code}```")
+
+    except Exception as e:
+        await ctx.reply(f"```오류 발생: {e}```")
+
 
 @bot.command()
 async def 서버이름변경(ctx, *, new_name: str = None):
