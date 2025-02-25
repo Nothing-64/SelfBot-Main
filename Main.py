@@ -884,7 +884,7 @@ async def 명령어(ctx):
     commands_list = '\n'.join([f"{current_prefix}{command.name}" for command in bot.commands if command.name != 'help'])
     
     
-    await ctx.reply(f"```사용 가능한 명령어들:\n{commands_list}\n\n🛠️ Developed By nothing._.64```")  
+    await ctx.reply(f"```사용 가능한 명령어들:\n{commands_list}\n\n🛠️ Developed By lunarist._.dev```")  
 
 
 @bot.command()
@@ -1901,7 +1901,7 @@ async def 토큰조회(ctx, *, token: str = None):
             f"배지: {badges}\n"
             f"\n✅ 토큰을 성공적으로 조회했습니다!"
             f"\n\n"
-            f"🛠️ Developed by nothing._.64"
+            f"🛠️ Developed by lunarist._.dev"
         )
         await ctx.reply(f"```{token_info}```")
     except Exception as e:
